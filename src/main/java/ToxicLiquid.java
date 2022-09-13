@@ -1,0 +1,2 @@
+class ToxicLiquid extends ToxicContainer{
+}

@@ -1,0 +1,45 @@
+---
+seaportShips:
+- maxNumberOfToxicOrExplosionContainers: 100
+  maxNumberOfHeavyContainers: 100
+  maxNumberOfElectricContainers: 100
+  maxNumberOfContainers: 100
+  shipID: 2590
+  maxCapacityInKilograms: 100.0
+  nameOfShip: "Maciej Ship One"
+  sourceLocationOfTheTransport: "Unknown"
+  transportDestination: "Unknown"
+  loadedContainers:
+  - sender: "Maciej Sender"
+    destination: "Unknown"
+    originLocation: "Unknown"
+    containerID: 145
+    weightOfTheContainerGross: 1.0
+    weightOfTheContainerNet: 1.0
+  - sender: "Maciej Sender1"
+    destination: "Unknown"
+    originLocation: "Unknown"
+    containerID: 145
+    weightOfTheContainerGross: 1.0
+    weightOfTheContainerNet: 1.0
+  - sender: "Maciej Sender2"
+    destination: "Unknown"
+    originLocation: "Unknown"
+    containerID: 145
+    weightOfTheContainerGross: 1.0
+    weightOfTheContainerNet: 1.0
+  numberOfToxicExplosionContainers: 0
+  numberOfHeavyContainers: 0
+  numberOfElectricContainers: 0
+  numberOfContainers: 1
+  currentCapacityInKilograms: 1.0
+wareHouses:
+- nameOfWarHouse: "The First and Last Warehouse of this Seaport"
+  listOfStoredContainers:
+  - sender: "fdgdfsg"
+    destination: "dsfgdsg"
+    originLocation: "sdfgdsfg"
+    containerID: 702
+    weightOfTheContainerGross: 1.0
+    weightOfTheContainerNet: 1.0
+wagons: []
