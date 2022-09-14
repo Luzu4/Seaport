@@ -2,18 +2,84 @@ import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.PropertyAccessor;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 
 import java.io.*;
+import java.time.LocalDate;
 import java.util.*;
 
 public class Main extends Thread {
+    public static LocalDate date = LocalDate.now();
 
-    public static void main(String[] args) throws IOException {
+    public static Seaport loadCurrentStatusOfSeaport() throws IOException {
+        //Load Current status of our seaport
+        ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
+        File file = new File(classLoader.getResource("seaport.yaml").getFile());
+        ObjectMapper om = new ObjectMapper(new YAMLFactory());
+        om.setVisibility(PropertyAccessor.FIELD, JsonAutoDetect.Visibility.ANY);
+        om.registerModule(new JavaTimeModule());
+        om.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
+        om.enable(DeserializationFeature.ACCEPT_EMPTY_STRING_AS_NULL_OBJECT);
+        om.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+        Seaport status = om.readValue(file, Seaport.class);
+        return status;
+    }
+    public static Seaport seaPortStatus;
 
+    static {
+        try {
+            seaPortStatus = loadCurrentStatusOfSeaport();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+
+    public static void main(String[] args) throws IOException{
+        System.out.println(date + "Current time");
+
+        Thread thread1 = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                Timer timer = new Timer();
+                TimerTask changeDayAfterEveryFiveSeconds = new TimerTask() {
+                    @Override
+                    public void run() {
+                        date = date.plusDays(1);
+                        for (Warehouse temp : seaPortStatus.wareHouses) {
+                            temp.checkWarehouseAndDeleteTooOldContainers(date);
+                        }
+
+                    }
+                };
+                timer.schedule(changeDayAfterEveryFiveSeconds, 0, 5000);
+            }
+        });
+
+        Thread thread2 = new Thread (new Runnable(){
+            @Override
+            public void run(){
+                Timer timer2 = new Timer();
+                TimerTask clearWagonTask = new TimerTask() {
+                    @Override
+                    public void run() {
+                        for( Wagon tempWagon : seaPortStatus.wagons){
+                            tempWagon.clearWagon();
+                        }
+                    }
+                };
+
+                timer2.schedule(clearWagonTask,30000);
+            }
+        });
+
+        thread1.start();
 
         //After creat 1st seaport comment it out
         //This is code to create yaml file at 1st time
+
         /*
         ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
         ObjectMapper om = new ObjectMapper(new YAMLFactory());
@@ -23,17 +89,6 @@ public class Main extends Thread {
         Seaport seaPortStatus = new Seaport();
         om.writeValue(new File("src/main/resources/seaport.yaml"), seaPortStatus);
          */
-
-
-
-        //Load Current status of our seaport
-        ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
-        File file = new File(classLoader.getResource("seaport.yaml").getFile());
-        ObjectMapper om = new ObjectMapper(new YAMLFactory());
-        om.setVisibility(PropertyAccessor.FIELD, JsonAutoDetect.Visibility.ANY);
-        om.enable(DeserializationFeature.ACCEPT_EMPTY_STRING_AS_NULL_OBJECT);
-        om.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
-        Seaport seaPortStatus = om.readValue(file, Seaport.class);
 
         //Comment it out after yaml file is created
         /*
@@ -46,23 +101,14 @@ public class Main extends Thread {
         ArrayList<BasicContainer> listOfStoredContainers = new ArrayList<BasicContainer>();
         ourFirstWarHouse.listOfStoredContainers = listOfStoredContainers;
         seaPortStatus.wareHouses.add(ourFirstWarHouse);
+
         ArrayList<Wagon> listOfWagons = new ArrayList<Wagon>();
         seaPortStatus.wagons = listOfWagons;
-         */
-
-        //I dont know what it is for
+        Wagon ourFirstWagon = new Wagon();
         ArrayList<BasicContainer> listOfContainersLoadedToWagon = new ArrayList<BasicContainer>();
-
-
-
-        Main thread = new Main();
-        thread.start();
-        int amount = 0;
-        while(thread.isAlive()){
-            System.out.println("Waiting..." + amount);
-            amount += 1;
-        }
-
+        ourFirstWagon.listOfTransportingContainers = listOfContainersLoadedToWagon;
+        seaPortStatus.wagons.add(ourFirstWagon);
+         */
 
         while(true) {
             System.out.println("""
@@ -76,15 +122,16 @@ public class Main extends Thread {
                     """);
             Scanner input = new Scanner(System.in);
             int inputFromUser = Integer.parseInt(input.nextLine());
-            switch(inputFromUser){
-                case 1:{
+            switch (inputFromUser) {
+                case 1: {
+                    System.out.println(date + "Current time");
                     System.out.println("-----------------------------------------\n");
                     System.out.println("List of Ships in Seaport: \n");
                     System.out.println("-----------------------------------------\n");
-                    for (Ship temp : seaPortStatus.seaportShips){
+                    for (Ship temp : seaPortStatus.seaportShips) {
                         System.out.println("Ship: " + temp.toString());
                         System.out.println("List of loaded containers: \n");
-                        for(BasicContainer loadedcontainer : temp.loadedContainers){
+                        for (BasicContainer loadedcontainer : temp.loadedContainers) {
                             System.out.println("Sender: " + loadedcontainer.sender + " Container id: " + loadedcontainer.containerID);
                         }
                         System.out.println("-----------------------------------------\n");
@@ -92,10 +139,10 @@ public class Main extends Thread {
                     System.out.println("-----------------------------------------\n");
                     System.out.println("List of WarHouses in Seaport: \n");
                     System.out.println("-----------------------------------------\n");
-                    for (Warehouse temp : seaPortStatus.wareHouses){
+                    for (Warehouse temp : seaPortStatus.wareHouses) {
                         System.out.println("Warhouse: " + temp.toString());
                         System.out.println("List of loaded containers: \n");
-                        for(BasicContainer loadedContainer : temp.listOfStoredContainers){
+                        for (BasicContainer loadedContainer : temp.listOfStoredContainers) {
                             System.out.println("Sender: " + loadedContainer.sender + " Container id: " + loadedContainer.containerID);
                         }
                         System.out.println("-----------------------------------------\n");
@@ -110,7 +157,7 @@ public class Main extends Thread {
                     seaPortStatus.seaportShips.add(newShip);
                     break;
                 }
-                case 3:{
+                case 3: {
                     System.out.println("-----------------------------------------\n" +
                             "What Type of Container you want to load: \n" +
                             "1.Basic Container\n" +
@@ -119,7 +166,7 @@ public class Main extends Thread {
                             "4.Liquid Container\n" +
                             "5.Explosion container\n" +
                             "6.Toxic Container\n" +
-                            "-----------------------------------------\n"+
+                            "-----------------------------------------\n" +
                             "User choice: ");
                     int userChoice = Integer.parseInt(input.nextLine());
                     BasicContainer newContainer = null;
@@ -165,41 +212,56 @@ public class Main extends Thread {
                             """);
                     int userChoiceWhereToLoad = 0;
                     userChoiceWhereToLoad = Integer.parseInt(input.nextLine());
-                    switch (userChoiceWhereToLoad){
+                    switch (userChoiceWhereToLoad) {
                         case 1:
-                            for (Warehouse temp : seaPortStatus.wareHouses){
+                            for (Warehouse temp : seaPortStatus.wareHouses) {
+                                newContainer.dateWhenContainerWentToWarehouse = LocalDate.now();
                                 temp.listOfStoredContainers.add(newContainer);
                                 System.out.println("Container loaded to WareHouse " + temp.nameOfWarHouse);
                             }
                             break;
                         case 2:
                             System.out.println("At which one ship you want to load it: ");
-                            for (Ship temp : seaPortStatus.seaportShips){
+                            for (Ship temp : seaPortStatus.seaportShips) {
                                 System.out.println("Ship: " + temp.toString());
                             }
                             System.out.println("Ship ID: ");
                             int idOfShipToLoadThisContainer = Integer.parseInt(input.nextLine());
-                            for (Ship temp : seaPortStatus.seaportShips){
-                                if (temp.shipID == idOfShipToLoadThisContainer){
+                            for (Ship temp : seaPortStatus.seaportShips) {
+                                if (temp.shipID == idOfShipToLoadThisContainer) {
                                     temp.loadContainer(newContainer);
-                                }else{
+                                } else {
                                     System.out.println("Wrong Ship ID");
                                 }
                             }
                             break;
                         case 3:
-
-                            System.out.println("Container loaded to Wagon");
+                            for(Wagon temp : seaPortStatus.wagons){
+                                if(temp.loadContainer(newContainer)){
+                                    System.out.println("Container loaded to Wagon");
+                                }else{
+                                    thread2.run();
+                                }
+                            }
                             break;
                     }
                 }
-                case 4:{
+                case 4: {
+                    ObjectMapper om = new ObjectMapper(new YAMLFactory());
+                    om.setVisibility(PropertyAccessor.FIELD, JsonAutoDetect.Visibility.ANY);
+                    om.enable(DeserializationFeature.ACCEPT_EMPTY_STRING_AS_NULL_OBJECT);
+                    om.registerModule(new JavaTimeModule());
+                    om.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
+                    om.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
                     om.writeValue(new File("src/main/resources/seaport.yaml"), seaPortStatus);
                     break;
                 }
             }
         }
     }
+
+
+
 }
 
 

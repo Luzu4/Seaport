@@ -4,30 +4,19 @@ seaportShips:
   maxNumberOfHeavyContainers: 100
   maxNumberOfElectricContainers: 100
   maxNumberOfContainers: 100
-  shipID: 2590
+  shipID: 4418
   maxCapacityInKilograms: 100.0
-  nameOfShip: "Maciej Ship One"
-  sourceLocationOfTheTransport: "Unknown"
-  transportDestination: "Unknown"
+  nameOfShip: "Ship number 1"
+  sourceLocationOfTheTransport: "dfghdfgh"
+  transportDestination: "dfghdfgh"
   loadedContainers:
-  - sender: "Maciej Sender"
-    destination: "Unknown"
-    originLocation: "Unknown"
-    containerID: 145
+  - sender: "fgdsfg"
+    destination: "dsfgdsfgsd"
+    originLocation: "sdfgsdfgs"
+    containerID: 193
     weightOfTheContainerGross: 1.0
     weightOfTheContainerNet: 1.0
-  - sender: "Maciej Sender1"
-    destination: "Unknown"
-    originLocation: "Unknown"
-    containerID: 145
-    weightOfTheContainerGross: 1.0
-    weightOfTheContainerNet: 1.0
-  - sender: "Maciej Sender2"
-    destination: "Unknown"
-    originLocation: "Unknown"
-    containerID: 145
-    weightOfTheContainerGross: 1.0
-    weightOfTheContainerNet: 1.0
+    dateWhenContainerWentToWarehouse: null
   numberOfToxicExplosionContainers: 0
   numberOfHeavyContainers: 0
   numberOfElectricContainers: 0
@@ -36,10 +25,35 @@ seaportShips:
 wareHouses:
 - nameOfWarHouse: "The First and Last Warehouse of this Seaport"
   listOfStoredContainers:
-  - sender: "fdgdfsg"
-    destination: "dsfgdsg"
-    originLocation: "sdfgdsfg"
-    containerID: 702
+  - sender: "sdfdsf"
+    destination: "sdfgdsfg"
+    originLocation: "sdfgdfs"
+    containerID: 128
     weightOfTheContainerGross: 1.0
     weightOfTheContainerNet: 1.0
-wagons: []
+    dateWhenContainerWentToWarehouse: "2022-09-14"
+wagons:
+- maxContainers: 10
+  currentNumberOfContainers: 10
+  listOfTransportingContainers:
+  - sender: "dsfdfsg"
+    destination: "fdghfdgh"
+    originLocation: "dfghfgdh"
+    containerID: 685
+    weightOfTheContainerGross: 1.0
+    weightOfTheContainerNet: 1.0
+    dateWhenContainerWentToWarehouse: null
+  - sender: "Maciej"
+    destination: "sadfsa"
+    originLocation: "fasdfadsf"
+    containerID: 130
+    weightOfTheContainerGross: 1.0
+    weightOfTheContainerNet: 1.0
+    dateWhenContainerWentToWarehouse: null
+  - sender: "sdfsdf"
+    destination: "sadf"
+    originLocation: "sa"
+    containerID: 349
+    weightOfTheContainerGross: 1.0
+    weightOfTheContainerNet: 1.0
+    dateWhenContainerWentToWarehouse: null

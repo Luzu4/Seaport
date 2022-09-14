@@ -1,3 +1,4 @@
+import java.time.LocalDate;
 import java.util.Random;
 import java.util.Scanner;
 
@@ -5,6 +6,9 @@ public class BasicContainer {
     String sender, destination, originLocation;
     int containerID;
     float weightOfTheContainerGross, weightOfTheContainerNet;
+
+    LocalDate dateWhenContainerWentToWarehouse;
+
     public BasicContainer() {
         Random rand = new Random();
         this.containerID = rand.nextInt(1000);
