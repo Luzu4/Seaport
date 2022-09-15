@@ -28,4 +28,13 @@ public class BasicContainer {
         this.weightOfTheContainerNet = Float.parseFloat(input.nextLine());
     }
 
+    @Override
+    public String toString(){
+        return ("Name of sender: " + sender +
+                " Destination: " + destination +
+                " Origin Location: " + originLocation +
+                " Gross Weight: " + weightOfTheContainerGross +
+                " Net Weight: " + weightOfTheContainerNet +
+                " Container ID: " + containerID);
+    }
 }

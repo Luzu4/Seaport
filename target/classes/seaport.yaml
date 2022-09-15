@@ -22,6 +22,28 @@ seaportShips:
   numberOfElectricContainers: 0
   numberOfContainers: 1
   currentCapacityInKilograms: 1.0
+- maxNumberOfToxicOrExplosionContainers: 155
+  maxNumberOfHeavyContainers: 155
+  maxNumberOfElectricContainers: 155
+  maxNumberOfContainers: 155
+  shipID: 665
+  maxCapacityInKilograms: 155.0
+  nameOfShip: "sadfsdf"
+  sourceLocationOfTheTransport: "sdfgdsfgkjdsfg;ldsgkjldsjkl;gdfsjkl;gklj;dsfgkl;jdfgsklj;dfsg"
+  transportDestination: "asdftgdfgdfsgfjkldhsg"
+  loadedContainers:
+  - sender: "olololol"
+    destination: "opopo"
+    originLocation: "popop"
+    containerID: 489
+    weightOfTheContainerGross: 1.0
+    weightOfTheContainerNet: 1.0
+    dateWhenContainerWentToWarehouse: null
+  numberOfToxicExplosionContainers: 0
+  numberOfHeavyContainers: 0
+  numberOfElectricContainers: 0
+  numberOfContainers: 2
+  currentCapacityInKilograms: 2.0
 wareHouses:
 - nameOfWarHouse: "The First and Last Warehouse of this Seaport"
   listOfStoredContainers:
@@ -32,6 +54,27 @@ wareHouses:
     weightOfTheContainerGross: 1.0
     weightOfTheContainerNet: 1.0
     dateWhenContainerWentToWarehouse: "2022-09-14"
+  - sender: "sadfdsa"
+    destination: "kldgfjshfgjkl;hfjklgdhhjklfgdghjklfd;"
+    originLocation: "dfjklghfgjkldfghjklfgdhjkl;"
+    containerID: 487
+    weightOfTheContainerGross: 1.0
+    weightOfTheContainerNet: 1.0
+    dateWhenContainerWentToWarehouse: "2022-09-15"
+  - sender: "kalala"
+    destination: "lalalal"
+    originLocation: "lalalal"
+    containerID: 702
+    weightOfTheContainerGross: 1.0
+    weightOfTheContainerNet: 1.0
+    dateWhenContainerWentToWarehouse: "2022-09-15"
+  - sender: "Maciej"
+    destination: "Maciej"
+    originLocation: "Maciej"
+    containerID: 252
+    weightOfTheContainerGross: 1.0
+    weightOfTheContainerNet: 1.0
+    dateWhenContainerWentToWarehouse: "2022-09-15"
 wagons:
 - maxContainers: 10
   currentNumberOfContainers: 10

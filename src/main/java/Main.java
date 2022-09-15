@@ -1,10 +1,4 @@
-import com.fasterxml.jackson.annotation.JsonAutoDetect;
-import com.fasterxml.jackson.annotation.PropertyAccessor;
-import com.fasterxml.jackson.databind.DeserializationFeature;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.SerializationFeature;
-import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
-import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
+
 
 import java.io.*;
 import java.time.LocalDate;
@@ -12,34 +6,17 @@ import java.util.*;
 
 public class Main extends Thread {
     public static LocalDate date = LocalDate.now();
-
-    public static Seaport loadCurrentStatusOfSeaport() throws IOException {
-        //Load Current status of our seaport
-        ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
-        File file = new File(classLoader.getResource("seaport.yaml").getFile());
-        ObjectMapper om = new ObjectMapper(new YAMLFactory());
-        om.setVisibility(PropertyAccessor.FIELD, JsonAutoDetect.Visibility.ANY);
-        om.registerModule(new JavaTimeModule());
-        om.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
-        om.enable(DeserializationFeature.ACCEPT_EMPTY_STRING_AS_NULL_OBJECT);
-        om.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
-        Seaport status = om.readValue(file, Seaport.class);
-        return status;
-    }
     public static Seaport seaPortStatus;
 
     static {
         try {
-            seaPortStatus = loadCurrentStatusOfSeaport();
+            seaPortStatus = YamlFileOperation.loadCurrentStatusOfSeaport();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }
-
-
     public static void main(String[] args) throws IOException{
         System.out.println(date + "Current time");
-
         Thread thread1 = new Thread(new Runnable() {
             @Override
             public void run() {
@@ -57,7 +34,7 @@ public class Main extends Thread {
                 timer.schedule(changeDayAfterEveryFiveSeconds, 0, 5000);
             }
         });
-
+        thread1.start();
         Thread thread2 = new Thread (new Runnable(){
             @Override
             public void run(){
@@ -74,42 +51,12 @@ public class Main extends Thread {
                 timer2.schedule(clearWagonTask,30000);
             }
         });
-
-        thread1.start();
-
-        //After creat 1st seaport comment it out
-        //This is code to create yaml file at 1st time
+        while (true){
+            Menu.mainMenu(date,seaPortStatus,thread2);
+        }
 
         /*
-        ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
-        ObjectMapper om = new ObjectMapper(new YAMLFactory());
-        om.setVisibility(PropertyAccessor.FIELD, JsonAutoDetect.Visibility.ANY);
-        om.enable(DeserializationFeature.ACCEPT_EMPTY_STRING_AS_NULL_OBJECT);
-        om.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
-        Seaport seaPortStatus = new Seaport();
-        om.writeValue(new File("src/main/resources/seaport.yaml"), seaPortStatus);
-         */
-
-        //Comment it out after yaml file is created
-        /*
-        ArrayList<Warehouse> listOfCreatedWareHousesInSeaport = new ArrayList<Warehouse>();
-        ArrayList<BasicContainer> listOfContainersLoadedToWareHouse = new ArrayList<BasicContainer>();
-        ArrayList<Ship> listOfShipsInSeaport = new ArrayList<Ship>();
-        seaPortStatus.seaportShips = listOfShipsInSeaport;
-        seaPortStatus.wareHouses = listOfCreatedWareHousesInSeaport;
-        Warehouse ourFirstWarHouse = new Warehouse("The First and Last Warehouse of this Seaport");
-        ArrayList<BasicContainer> listOfStoredContainers = new ArrayList<BasicContainer>();
-        ourFirstWarHouse.listOfStoredContainers = listOfStoredContainers;
-        seaPortStatus.wareHouses.add(ourFirstWarHouse);
-
-        ArrayList<Wagon> listOfWagons = new ArrayList<Wagon>();
-        seaPortStatus.wagons = listOfWagons;
-        Wagon ourFirstWagon = new Wagon();
-        ArrayList<BasicContainer> listOfContainersLoadedToWagon = new ArrayList<BasicContainer>();
-        ourFirstWagon.listOfTransportingContainers = listOfContainersLoadedToWagon;
-        seaPortStatus.wagons.add(ourFirstWagon);
-         */
-
+        Scanner input = new Scanner(System.in);
         while(true) {
             System.out.println("""
                     -----------------------------------------
@@ -120,7 +67,7 @@ public class Main extends Thread {
                     4.Save\s
                     -----------------------------------------
                     """);
-            Scanner input = new Scanner(System.in);
+
             int inputFromUser = Integer.parseInt(input.nextLine());
             switch (inputFromUser) {
                 case 1: {
@@ -172,9 +119,7 @@ public class Main extends Thread {
                     BasicContainer newContainer = null;
                     switch (userChoice) {
                         case 1: {
-                            newContainer = new BasicContainer();
-                            newContainer.createNewContainer();
-                            break;
+
                         }
                         case 2: {
                             newContainer = new HeavyContainer();
@@ -247,17 +192,12 @@ public class Main extends Thread {
                     }
                 }
                 case 4: {
-                    ObjectMapper om = new ObjectMapper(new YAMLFactory());
-                    om.setVisibility(PropertyAccessor.FIELD, JsonAutoDetect.Visibility.ANY);
-                    om.enable(DeserializationFeature.ACCEPT_EMPTY_STRING_AS_NULL_OBJECT);
-                    om.registerModule(new JavaTimeModule());
-                    om.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
-                    om.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
-                    om.writeValue(new File("src/main/resources/seaport.yaml"), seaPortStatus);
-                    break;
+
                 }
             }
         }
+
+         */
     }
 
 
