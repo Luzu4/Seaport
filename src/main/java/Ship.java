@@ -43,7 +43,7 @@ public class Ship {
         this.nameOfShip = input.nextLine();
         System.out.println("Destination of the transport: ");
         this.transportDestination = input.nextLine();
-        System.out.println("Source Location Of The Trasnport: ");
+        System.out.println("Source Location Of The Transport: ");
         this.sourceLocationOfTheTransport = input.nextLine();
         System.out.println("Maximum number of containers: ");
         this.maxNumberOfContainers = Integer.parseInt(input.nextLine());

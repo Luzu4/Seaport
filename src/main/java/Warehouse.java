@@ -1,5 +1,6 @@
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Iterator;
 
 public class Warehouse {
     String nameOfWarHouse;
@@ -10,15 +11,16 @@ public class Warehouse {
     ArrayList<BasicContainer> listOfStoredContainers;
 
     public void checkWarehouseAndDeleteTooOldContainers(LocalDate currentDate){
-        for (BasicContainer temp : listOfStoredContainers){
-            if (currentDate.isAfter(temp.dateWhenContainerWentToWarehouse.plusDays(30))){
-                listOfStoredContainers.remove(temp);
-                System.out.println("Container with ID : " + temp.containerID + " has been removed");
+        for (Iterator<BasicContainer> iterator1 = listOfStoredContainers.iterator(); iterator1.hasNext();){
+            BasicContainer container123 = iterator1.next();
+            if (currentDate.isAfter(container123.dateWhenContainerWentToWarehouse.plusDays(30))){
+                System.out.println("Container with ID: " + container123.containerID + " has been removed.");
+                iterator1.remove();
             }
         }
     }
     @Override
     public String toString(){
-        return ("Name of Warhouse: " + nameOfWarHouse );
+        return ("Name of Warehouse: " + nameOfWarHouse );
     }
 }

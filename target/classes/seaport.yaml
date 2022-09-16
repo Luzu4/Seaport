@@ -17,11 +17,18 @@ seaportShips:
     weightOfTheContainerGross: 1.0
     weightOfTheContainerNet: 1.0
     dateWhenContainerWentToWarehouse: null
+  - sender: "sdfdsf"
+    destination: "sdfgdsfg"
+    originLocation: "sdfgdfs"
+    containerID: 128
+    weightOfTheContainerGross: 1.0
+    weightOfTheContainerNet: 1.0
+    dateWhenContainerWentToWarehouse: "2022-09-14"
   numberOfToxicExplosionContainers: 0
   numberOfHeavyContainers: 0
   numberOfElectricContainers: 0
-  numberOfContainers: 1
-  currentCapacityInKilograms: 1.0
+  numberOfContainers: 2
+  currentCapacityInKilograms: 2.0
 - maxNumberOfToxicOrExplosionContainers: 155
   maxNumberOfHeavyContainers: 155
   maxNumberOfElectricContainers: 155
@@ -47,13 +54,6 @@ seaportShips:
 wareHouses:
 - nameOfWarHouse: "The First and Last Warehouse of this Seaport"
   listOfStoredContainers:
-  - sender: "sdfdsf"
-    destination: "sdfgdsfg"
-    originLocation: "sdfgdfs"
-    containerID: 128
-    weightOfTheContainerGross: 1.0
-    weightOfTheContainerNet: 1.0
-    dateWhenContainerWentToWarehouse: "2022-09-14"
   - sender: "sadfdsa"
     destination: "kldgfjshfgjkl;hfjklgdhhjklfgdghjklfd;"
     originLocation: "dfjklghfgjkldfghjklfgdhjkl;"
@@ -61,20 +61,27 @@ wareHouses:
     weightOfTheContainerGross: 1.0
     weightOfTheContainerNet: 1.0
     dateWhenContainerWentToWarehouse: "2022-09-15"
-  - sender: "kalala"
-    destination: "lalalal"
-    originLocation: "lalalal"
-    containerID: 702
+  - sender: "sadfdsa"
+    destination: "kldgfjshfgjkl;hfjklgdhhjklfgdghjklfd;"
+    originLocation: "dfjklghfgjkldfghjklfgdhjkl;"
+    containerID: 911
     weightOfTheContainerGross: 1.0
     weightOfTheContainerNet: 1.0
-    dateWhenContainerWentToWarehouse: "2022-09-15"
-  - sender: "Maciej"
-    destination: "Maciej"
-    originLocation: "Maciej"
-    containerID: 252
+    dateWhenContainerWentToWarehouse: "2022-09-18"
+  - sender: "sadfdsa"
+    destination: "kldgfjshfgjkl;hfjklgdhhjklfgdghjklfd;"
+    originLocation: "dfjklghfgjkldfghjklfgdhjkl;"
+    containerID: 913
     weightOfTheContainerGross: 1.0
     weightOfTheContainerNet: 1.0
-    dateWhenContainerWentToWarehouse: "2022-09-15"
+    dateWhenContainerWentToWarehouse: "2022-09-18"
+  - sender: "sadfdsa"
+    destination: "kldgfjshfgjkl;hfjklgdhhjklfgdghjklfd;"
+    originLocation: "dfjklghfgjkldfghjklfgdhjkl;"
+    containerID: 915
+    weightOfTheContainerGross: 1.0
+    weightOfTheContainerNet: 1.0
+    dateWhenContainerWentToWarehouse: "2022-09-18"
 wagons:
 - maxContainers: 10
   currentNumberOfContainers: 10

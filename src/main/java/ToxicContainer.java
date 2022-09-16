@@ -6,7 +6,7 @@ class ToxicContainer extends HeavyContainer{
     public ToxicContainer(){
         super();
         Scanner input = new Scanner(System.in);
-        System.out.println("Certifcate: ");
+        System.out.println("Certificate: ");
         certificate = input.nextLine();
 
     }

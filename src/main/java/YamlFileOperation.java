@@ -5,7 +5,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
-
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -36,20 +35,16 @@ public class YamlFileOperation {
             Seaport seaPortStatus = new Seaport();
             om.writeValue(new File("src/main/resources/seaport.yaml"), seaPortStatus);
             //Comment it out after yaml file is created
-            ArrayList<Warehouse> listOfCreatedWareHousesInSeaport = new ArrayList<Warehouse>();
-            ArrayList<BasicContainer> listOfContainersLoadedToWareHouse = new ArrayList<BasicContainer>();
-            ArrayList<Ship> listOfShipsInSeaport = new ArrayList<Ship>();
-            seaPortStatus.seaportShips = listOfShipsInSeaport;
+            ArrayList<Warehouse> listOfCreatedWareHousesInSeaport = new ArrayList<>();
+            ArrayList<BasicContainer> listOfContainersLoadedToWareHouse = new ArrayList<>();
+            seaPortStatus.seaportShips = new ArrayList<>();
             seaPortStatus.wareHouses = listOfCreatedWareHousesInSeaport;
             Warehouse ourFirstWarHouse = new Warehouse("The First and Last Warehouse of this Seaport");
-            ArrayList<BasicContainer> listOfStoredContainers = new ArrayList<BasicContainer>();
-            ourFirstWarHouse.listOfStoredContainers = listOfStoredContainers;
+            ourFirstWarHouse.listOfStoredContainers = new ArrayList<>();
             seaPortStatus.wareHouses.add(ourFirstWarHouse);
-            ArrayList<Wagon> listOfWagons = new ArrayList<Wagon>();
-            seaPortStatus.wagons = listOfWagons;
+            seaPortStatus.wagons = new ArrayList<>();
             Wagon ourFirstWagon = new Wagon();
-            ArrayList<BasicContainer> listOfContainersLoadedToWagon = new ArrayList<BasicContainer>();
-            ourFirstWagon.listOfTransportingContainers = listOfContainersLoadedToWagon;
+            ourFirstWagon.listOfTransportingContainers = new ArrayList<>();
             seaPortStatus.wagons.add(ourFirstWagon);
             System.out.println("New Seaport was created");
             return seaPortStatus;

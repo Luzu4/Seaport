@@ -20,7 +20,7 @@ public class Wagon {
     public void clearWagon (){
         listOfTransportingContainers.clear();
         currentNumberOfContainers = 0;
-        System.out.println("CLEARED WAGON BABABAB");
+        System.out.println("CLEARED WAGON");
         System.out.println(currentNumberOfContainers);
 
     }
